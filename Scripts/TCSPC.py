@@ -1,6 +1,6 @@
 import numpy as np
 from numba import jit, float64
-from readPTU_FLIM import PTUreader
+from Scripts.readPTU_FLIM import PTUreader
 import pandas as pd
 import scipy.optimize
 import lifefit as lf
@@ -99,15 +99,13 @@ def loader(df,num,IRF_path,IRF_min,IRF_max,low_cut,high_cut,sub=False,sub_low = 
     """
     
     
-    #FIXME have IRF as input
+    #TODO: have IRF as input in excel file
     if IRF_path == None:
         if num > 6:
-            IRF_path = "../../2023/230608_clean_ibidi_ctd.sptw/IRF_531_40_1.ptu"
+            IRF_path = "Raw_Data/IRF_531_1.ptu"
         else:
-            IRF_path = "../../2023/230607_clean_ibidi_fcs.sptw/IRF_quick1.ptu"
+            IRF_path = "Raw_Data/IRF_quick1.ptu"
 
-#     IRF_min = 19
-#     IRF_max = 44
     
     path = df.paths[num]
     if sub:
@@ -260,7 +258,7 @@ def recon4(IRF,t_ns,ns_channel,tau_1,amp_1,tau_2,amp_2,tau_3,amp_3,tau_4,amp_4,b
     return np.dot(A,np.array([amp_1,amp_2,amp_3,amp_4,bck]))
 
     
-def paramser(n_tau,vals_dict = None):
+def paramser(n_tau,vals_dict = None,lims_dict = None):
     """
     Generates a Parameters object and a Model lmfit object based on the number of exponential components with initial guesses optimised for sCy3.
     vals_dict
@@ -269,6 +267,7 @@ def paramser(n_tau,vals_dict = None):
         n_tau (int): The number of tau values to consider. Determines the number of parameters to add to the Parameters object.
         vals_dict (dict, optional): A dictionary containing parameter values to assign. 
                                     The keys should match the parameter names in the Parameters object, but not all parameters need to be in the dictionary.
+        lims_dict (dict, optional): A dictionary containing parameter limits to assign. Val should be a tuple or list of the form (min,max).
 
     Returns:
         Model: The Model object based on the value of n_tau.
@@ -290,14 +289,6 @@ def paramser(n_tau,vals_dict = None):
                         ('shift',5,True,-200,200,None,None))
         mod = Model(recon2,independent_vars=['t_ns','IRF','ns_channel'])
     elif n_tau == 3:
-        # params.add_many(('tau_1',0.2,True,0.1,10,None,None),
-        #                 ('amp_1',10,True,1e-8,1e4,None,None),
-        #                 ('tau_2',0.4,True,0.1,10,None,None),
-        #                 ('amp_2',10,True,1e-8,1e4,None,None),
-        #                 ('tau_3',1,True,0.1,10,None,None),
-        #                 ('amp_3',0.01,True,1e-8,1e4,None,None),
-        #                 ('bck',1,True,0.1,1e3,None,None),
-        #                 ('shift',-70,True,-200,200,None,None))
         params.add_many(('tau_1',0.2,True,0.01,10,None,None),
                     ('amp_1',10,True,1e-8,1e4,None,None),
                     ('tau_2',0.5,True,0.1,4,None,None),
@@ -331,6 +322,11 @@ def paramser(n_tau,vals_dict = None):
     if vals_dict is not None:
         for key,val in vals_dict.items():
             params[key].value = val
+
+    if lims_dict is not None:
+        for key,val in lims_dict.items():
+            params[key].min = val[0]
+            params[key].max = val[1]
     return mod,params
 
 #TODO - Switch all code over to pre allocated versions
