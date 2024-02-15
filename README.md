@@ -1,6 +1,6 @@
 # sgFCS_PTU
 ## Python based shrinking gate fluorescence correlation spectroscopy
-This package proccess TCSPC data in the form of a PTU file with both lifetime fitting and shrinking gate Fluorescence spectrscopy. It is associated with a submission to ACS Macro Letters (Understanding Associative Polymer Self-Assembly with Shrinking Gate Fluorescence Correlation Spectroscopy
+This package proccess TCSPC data in the form of a PTU file with both lifetime fitting and shrinking gate Fluorescence spectrscopy. It is associated with a submission to Nanoscale (Understanding Associative Polymer Self-Assembly with Shrinking Gate Fluorescence Correlation Spectroscopy
 Timothy J. Murdoch,† Baptiste Quienne,‡ Julien Pinaud,‡ Sylvain Caillol‡ and Ignacio Martín-Fabiani†,*) Additional details will be provided once accepted.
 
 ### Installation
