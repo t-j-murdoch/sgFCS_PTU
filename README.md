@@ -1,7 +1,7 @@
 # sgFCS_PTU
 
 ## Python based shrinking gate fluorescence correlation spectroscopy
-This package proccess TCSPC data in the form of a PTU file with both lifetime fitting and shrinking gate Fluorescence spectrscopy. It is originally associated with.
+This package proccess TCSPC data in the form of a PTU file with both lifetime fitting and shrinking gate Fluorescence spectrscopy.
 
 ## Installation
 This package has been tested in a conda environment on a Windows machine. A possible installation path is:
