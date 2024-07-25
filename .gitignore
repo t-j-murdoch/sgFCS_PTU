@@ -47,3 +47,10 @@ Processed_Data/mod3_MLE.bin
 Processed_Data/sCy3_12nM_data.bin
 Processed_Data/sCy3_12nM_model.bin
 batch_fit.xlsx
+Consti/YG 0.1nm_0.1 wt.ptu
+Consti/YG 0.1um_0.01 wt.ptu
+Consti/YG 0.1um_0.05 wt.ptu
+consti_decays.bin
+.ipynb_checkpoints/sgFCS Workflow Clean-checkpoint.ipynb
+Consti.xlsx
+sgFCS Workflow Clean.ipynb
